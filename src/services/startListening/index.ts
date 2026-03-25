@@ -1,14 +1,16 @@
 import { User } from "../../lib/models";
 
-export default async function startListening(userId: string, lat: number, lng: number) {
-    const user = await User.create({
-        pin: {
-            type: 'Point',
-            coordinates: [lng, lat]
-        },
-        userId,
-        listening: true
-    });
+export default async function startListening(userId: number, lat: number, lng: number) {
+    const user = await User.findOneAndUpdate({ userId }, {
+        $set: {
+            pin: {
+                type: 'Point',
+                coordinates: [lng, lat]
+            },
+            userId,
+            listening: true
+        }
+    }, { upsert: true, returnDocument: 'after' });
 
     return user;
 }

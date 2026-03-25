@@ -4,8 +4,9 @@ import paginate from 'mongoose-paginate-v2';
 
 export const UserSchema = new Schema({
     userId: {
-        type: String,
-        required: true
+        type: Number,
+        required: true,
+        unique: true
     },
     pin: {
         type: pointSchema,
