@@ -1,5 +1,5 @@
 import { Markup, Telegraf } from "telegraf";
-import startListening from "../services/startListening";
+import addLocation from "../services/location/location";
 
 export default function location(bot: Telegraf) {
 
@@ -22,7 +22,7 @@ export default function location(bot: Telegraf) {
                 // One-time location
                 await ctx.reply('⏳ Finding airdrops near you...', Markup.removeKeyboard());
 
-                await startListening(userId, latitude, longitude);
+                await addLocation(userId, latitude, longitude);
 
                 await ctx.reply(
                     `✅ *Location received!*\n` +
@@ -46,7 +46,7 @@ export default function location(bot: Telegraf) {
             const userId = ctx.editedMessage.from.id;
 
             // Update location in your service
-            await startListening(userId, latitude, longitude);
+            await addLocation(userId, latitude, longitude);
 
             // Optionally notify user of update (or keep silent)
             // await ctx.reply('📍 Location updated!', { parse_mode: 'Markdown' });

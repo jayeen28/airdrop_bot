@@ -1,6 +1,6 @@
 import { User } from "../../lib/models";
 
-export default async function startListening(userId: number, lat: number, lng: number) {
+export default async function addLocation(userId: number, lat: number, lng: number) {
     const user = await User.findOneAndUpdate({ userId }, {
         $set: {
             pin: {

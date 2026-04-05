@@ -1,5 +1,5 @@
 import { Telegraf, Context, Markup } from 'telegraf';
-import startListening from '../services/startListening';
+import startListening from '../services/location/location';
 
 export default function start(bot: Telegraf) {
     bot.start((ctx: Context) => {
