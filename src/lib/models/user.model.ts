@@ -10,6 +10,7 @@ export const UserSchema = new Schema({
     },
     pin: {
         type: pointSchema,
+        default: null,
         required: true
     },
     listening: {

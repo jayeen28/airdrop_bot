@@ -10,7 +10,7 @@ export default async function addLocation(userId: number, lat: number, lng: numb
             userId,
             listening: true
         }
-    }, { upsert: true, returnDocument: 'after' });
+    }, { returnDocument: 'after' });
 
     return user;
 }

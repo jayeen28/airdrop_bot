@@ -1,0 +1,1 @@
+export const STOP_REPLY = '🛑 Listening stopped !';
