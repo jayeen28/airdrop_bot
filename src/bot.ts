@@ -3,6 +3,7 @@ import { Telegraf } from "telegraf";
 import mongoose from 'mongoose';
 import registerCommands from './commands';
 import registerListeners from './listeners';
+import worker from './worker/worker';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ async function connectDatabase(): Promise<void> {
 async function startBot() {
     // Connect DB first - bot won't start if this fails
     await connectDatabase();
+    await worker();
 
     const bot = new Telegraf(BOT_TOKEN);
 

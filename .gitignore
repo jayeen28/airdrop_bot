@@ -1,2 +1,4 @@
 .env
 node_modules
+redis-data
+rabbitmq_data

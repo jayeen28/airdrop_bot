@@ -2,7 +2,7 @@ import { Markup, Telegraf } from 'telegraf';
 import { createUser } from '../services/user/user';
 import { START_REPLY } from '../lib/replies/start.reply';
 
-export default function start(bot: Telegraf) {
+export default function startCommand(bot: Telegraf) {
     bot.start(async (ctx) => {
         await createUser(ctx.from);
 

@@ -1,10 +1,12 @@
-import { Context, Telegraf } from "telegraf";
+import { Telegraf } from "telegraf";
+import listenCommand from "./listen";
 import startCommand from "./start";
-import listen from "./listen";
-import stop from "./stop";
+import stopCommand from "./stop";
+import messageCommand from "./message";
 
 export default function registerCommands(bot: Telegraf) {
     startCommand(bot)
-    listen(bot);
-    stop(bot);
+    listenCommand(bot);
+    stopCommand(bot);
+    messageCommand(bot);
 }

@@ -2,15 +2,15 @@ import { User as UserType } from "telegraf/types";
 import { User } from "../../lib/models";
 
 export async function createUser(tg_user: UserType) {
-    await User.findOneAndUpdate({ userId: tg_user.id }, {
+    await User.findOneAndUpdate({ tg_id: tg_user.id }, {
         $set: {
-            userId: tg_user.id,
+            tg_id: tg_user.id,
             listening: true
         }
     }, { upsert: true, returnDocument: 'after' });
 }
 
-export async function hasLocation(userId: number) {
-    const user = await User.findOne({ userId });
+export async function hasLocation(tg_id: number) {
+    const user = await User.findOne({ tg_id });
     return Boolean(user?.pin);
 }

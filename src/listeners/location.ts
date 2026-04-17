@@ -7,7 +7,7 @@ export default function location(bot: Telegraf) {
     bot.on('location', async (ctx) => {
         try {
             const { latitude, longitude } = ctx.message.location;
-            const userId = ctx.message.from.id;
+            const tg_id = ctx.message.from.id;
 
             // Check if it's a live location update
             if ('live_period' in ctx.message.location) {
@@ -22,7 +22,7 @@ export default function location(bot: Telegraf) {
                 // One-time location
                 await ctx.reply('⏳ Finding airdrops near you...', Markup.removeKeyboard());
 
-                await addLocation(userId, latitude, longitude);
+                await addLocation(tg_id, latitude, longitude);
 
                 await ctx.reply(
                     `✅ *Location received!*\n` +
@@ -43,10 +43,10 @@ export default function location(bot: Telegraf) {
     bot.on('edited_message', async (ctx) => {
         if ('location' in ctx.editedMessage && ctx.editedMessage.location) {
             const { latitude, longitude } = ctx.editedMessage.location;
-            const userId = ctx.editedMessage.from.id;
+            const tg_id = ctx.editedMessage.from.id;
 
             // Update location in your service
-            await addLocation(userId, latitude, longitude);
+            await addLocation(tg_id, latitude, longitude);
 
             // Optionally notify user of update (or keep silent)
             // await ctx.reply('📍 Location updated!', { parse_mode: 'Markdown' });

@@ -1,13 +1,13 @@
 import { User } from "../../lib/models";
 
-export default async function addLocation(userId: number, lat: number, lng: number) {
-    const user = await User.findOneAndUpdate({ userId }, {
+export default async function addLocation(tg_id: number, lat: number, lng: number) {
+    const user = await User.findOneAndUpdate({ tg_id }, {
         $set: {
             pin: {
                 type: 'Point',
                 coordinates: [lng, lat]
             },
-            userId,
+            tg_id,
             listening: true
         }
     }, { returnDocument: 'after' });
