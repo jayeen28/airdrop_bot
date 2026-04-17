@@ -1,14 +1,11 @@
 import { Telegraf } from "telegraf";
 import message from "../services/message/message";
 import { redis } from "../lib/redis";
-import { AIRDROP_WITHOUT_WAITING } from "../lib/replies/airdrop.reply";
+import { AIRDROP_CREATED, AIRDROP_WITHOUT_WAITING } from "../lib/replies/airdrop.reply";
 
 export default function messageListener(bot: Telegraf) {
     bot.on('message', async (ctx, next) => {
-        if ("text" in ctx.message && ctx.message.text.startsWith("/")) {
-            next();
-            return;
-        }
+        if ("text" in ctx.message && ctx.message.text.startsWith("/")) return next();
 
         const isWaiting = await redis.get(`airdrop_waiting:${ctx.from.id}`);
         if (!isWaiting) return ctx.reply(AIRDROP_WITHOUT_WAITING);
@@ -42,8 +39,9 @@ export default function messageListener(bot: Telegraf) {
             payload.fileId = ctx.message.voice.file_id;
         }
 
-        await message(payload); // your existing function
+        await message(payload);
 
-        await ctx.reply("🎁 Airdrop created and sending...");
+        await redis.del(`airdrop_waiting:${ctx.from.id}`);
+        await ctx.reply(AIRDROP_CREATED);
     })
 }

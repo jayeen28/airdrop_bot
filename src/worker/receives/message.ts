@@ -13,6 +13,7 @@ export default async function messageReceiver(msg: { messageId: string }) {
     if (!message) return;
 
     const nearbyUsers = await User.find({
+        listening: true,
         pin: {
             $near: {
                 $geometry: {
