@@ -3,7 +3,7 @@ export interface MessagePayload {
     type: 'text' | 'photo' | 'video' | 'voice';
     message: string;
     caption?: string;
-    fileId?: number
+    fileId?: string
 }
 
 export type Queues = 'message';

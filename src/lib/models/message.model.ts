@@ -9,7 +9,12 @@ export const messageSchema = new Schema({
         required: true
     },
     type: { type: String, enum: ['text', 'photo', 'video', 'voice'] },
-    fileId: { type: Number },
+    fileId: {
+        type: String,
+        required: function () {
+            return this.type === 'photo' || this.type === 'video' || this.type === 'voice';
+        }
+    },
     message: { type: String, default: 'New message' },
     caption: { type: String },
     radius: { type: Number, default: 500 }

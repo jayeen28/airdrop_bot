@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import registerCommands from './commands';
 import registerListeners from './listeners';
 import worker from './worker/worker';
+import { connectRedis } from './lib/redis';
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ async function startBot() {
     // Connect DB first - bot won't start if this fails
     await connectDatabase();
     await worker();
+    await connectRedis();
 
     const bot = new Telegraf(BOT_TOKEN);
 
