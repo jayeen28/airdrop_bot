@@ -46,8 +46,6 @@ export async function consume(queue: Queues, processor: (payload: any) => Promis
 }
 
 export default async function worker() {
-    console.log('🚀 Worker starting up...');
-
     try {
         console.log('📡 Connecting to RabbitMQ...');
         await consume('message', messageReceiver);
