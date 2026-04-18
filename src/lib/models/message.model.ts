@@ -3,7 +3,7 @@ import paginate from 'mongoose-paginate-v2';
 import pointSchema from "./point.model";
 
 export const messageSchema = new Schema({
-    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     point: {
         type: pointSchema,
         required: true

@@ -7,7 +7,7 @@ export default function messageListener(bot: Telegraf) {
     bot.on('message', async (ctx, next) => {
         if ("text" in ctx.message && ctx.message.text.startsWith("/")) return next();
 
-        const isWaiting = await redis.get(`airdrop_waiting:${ctx.from.id}`);
+        const isWaiting = await redis.getdel(`airdrop_waiting:${ctx.from.id}`);
         if (!isWaiting) return ctx.reply(AIRDROP_WITHOUT_WAITING);
 
         let payload: any = {
@@ -40,8 +40,6 @@ export default function messageListener(bot: Telegraf) {
         }
 
         await message(payload);
-
-        await redis.del(`airdrop_waiting:${ctx.from.id}`);
         await ctx.reply(AIRDROP_CREATED);
     })
 }

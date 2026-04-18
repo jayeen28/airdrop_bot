@@ -1,14 +1,15 @@
 import { Types } from "mongoose";
 import { Telegraf } from "telegraf";
-import { User } from "../../lib/models";
+import { User, UserDocument } from "../../lib/models";
 import { Message } from "../../lib/models/message.model";
 import { getBot } from "../../lib/getBot";
+import { SUCCESSFUL_AIR_DROPS } from "../../lib/replies/airdrop.reply";
 
 const chunkSize = 25;
 
 export default async function messageReceiver(msg: { messageId: string }) {
     const bot = getBot();
-    const message = await Message.findOne({ _id: new Types.ObjectId(msg.messageId) });
+    const message = await Message.findOne({ _id: new Types.ObjectId(msg.messageId) }).populate([{ path: 'sender' }]);
 
     if (!message) return;
 
@@ -65,6 +66,8 @@ export default async function messageReceiver(msg: { messageId: string }) {
                 }
             })
         );
+
+        await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, SUCCESSFUL_AIR_DROPS(chunkSize))
 
         await new Promise(res => setTimeout(res, 1000)); // 1 sec delay
     }
