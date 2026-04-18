@@ -2,6 +2,8 @@
 
 A Telegram bot for sharing and receiving location-based airdrops. Users can send a drop message with text, photo, video, or voice content, and the bot can also listen for nearby drops based on the last shared location.
 
+![Bot Screenshot](screen_shots/screen_shot_1.png)
+
 ## Features
 
 - `/start` — register user and prompt for location sharing
@@ -11,7 +13,6 @@ A Telegram bot for sharing and receiving location-based airdrops. Users can send
 - `/airdrop` — create a new drop message by sending content after the command
 - Supports one-time location sharing with Telegram and live location requests
 - Uses MongoDB, Redis, and RabbitMQ for persistence, queueing, and state management
-
 ## How it works
 
 1. The bot starts with `src/bot.ts`.
