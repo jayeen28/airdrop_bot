@@ -18,7 +18,7 @@ export const messageSchema = new Schema({
     message: { type: String, default: 'New message' },
     caption: { type: String },
     radius: { type: Number, default: 500 }
-});
+}, { timestamps: true, versionKey: false });
 
 
 messageSchema.plugin(paginate);

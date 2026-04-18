@@ -21,7 +21,7 @@ export const UserSchema = new Schema({
         required: true,
         default: false
     }
-});
+}, { timestamps: true, versionKey: false });
 
 UserSchema.index({ pin: "2dsphere" });
 UserSchema.plugin(paginate);

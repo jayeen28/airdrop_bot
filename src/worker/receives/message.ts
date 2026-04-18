@@ -14,6 +14,7 @@ export default async function messageReceiver(msg: { messageId: string }) {
     if (!message) return;
 
     const nearbyUsers = await User.find({
+        _id: { $ne: message.sender },
         listening: true,
         pin: {
             $near: {
@@ -67,7 +68,7 @@ export default async function messageReceiver(msg: { messageId: string }) {
             })
         );
 
-        await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, SUCCESSFUL_AIR_DROPS(chunkSize))
+        await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, SUCCESSFUL_AIR_DROPS(chunk.length))
 
         await new Promise(res => setTimeout(res, 1000)); // 1 sec delay
     }
