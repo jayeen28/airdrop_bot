@@ -3,6 +3,10 @@ import pointSchema from "./point.model";
 import paginate from 'mongoose-paginate-v2';
 
 export const UserSchema = new Schema({
+    tg_data: {
+        type: Object,
+        default: null
+    },
     tg_id: {
         type: Number,
         required: true,
