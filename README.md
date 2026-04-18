@@ -52,12 +52,9 @@ Create a `.env` file in the project root with:
 ```env
 BOT_TOKEN=your-telegram-bot-token
 MONGODB_URI=mongodb://localhost:27017/air_drop_bot
-
-RABBITMQ_PORT=5672
-RABBITMQ_USER=guest
-RABBITMQ_PASS=guest
-
-REDIS_PORT=6379
+DEFAULT_AIRDROP_RADIUS=2000 # In meters 1000m -> 1km
+RABBITMQ_URL=amqp://user:pass@localhost:5672
+REDIS_URL=redis://localhost:6379
 ```
 
 ## Local development

@@ -6,12 +6,7 @@ let conn: amqp.ChannelModel;
 let ch: amqp.Channel;
 async function connectRabbit() {
     if (ch) return { conn, ch };
-    conn = await amqp.connect({
-        hostname: process.env.HOST,
-        port: Number(process.env.RABBITMQ_PORT),
-        username: process.env.RABBITMQ_USER,
-        password: process.env.RABBITMQ_PASS,
-    });
+    conn = await amqp.connect(process.env.RABBITMQ_URL!);
 
     ch = await conn.createChannel();
 

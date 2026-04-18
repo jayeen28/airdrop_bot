@@ -3,7 +3,7 @@ import Redis from "ioredis";
 export let redis: Redis;
 
 export async function connectRedis(): Promise<void> {
-    redis = new Redis({ host: process.env.HOST!, port: Number(process.env.REDIS_PORT!) });
+    redis = new Redis(process.env.REDIS_URL!);
     return new Promise((resolve, reject) => {
         redis.on('connect', () => {
             console.log('✅ Redis connected');
