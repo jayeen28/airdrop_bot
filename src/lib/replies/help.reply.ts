@@ -1,5 +1,5 @@
 export const HELP_REPLY =
-    '📌 *Geo Drop Bot — Help & Commands*\n\n' +
+    '📌 *Airdrop Bot — Help & Commands*\n\n' +
     '*Available commands:*\n' +
     '• /start - Register and get location sharing options\n' +
     '• /listen - Start receiving nearby airdrops\n' +

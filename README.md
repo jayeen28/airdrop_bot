@@ -1,4 +1,4 @@
-# Geo Drop Bot
+# Airdrop Bot
 
 A Telegram bot for sharing and receiving location-based airdrops. Users can send a drop message with text, photo, video, or voice content, and the bot can also listen for nearby drops based on the last shared location.
 
@@ -6,7 +6,7 @@ A Telegram bot for sharing and receiving location-based airdrops. Users can send
 
 - `/start` — register user and prompt for location sharing
 - `/help` — show available commands and usage guidance
-- `/listen` — enable listening for nearby geo-drops
+- `/listen` — enable listening for nearby air-drops
 - `/stop` — stop listening for nearby drops
 - `/airdrop` — create a new drop message by sending content after the command
 - Supports one-time location sharing with Telegram and live location requests
@@ -51,7 +51,7 @@ Create a `.env` file in the project root with:
 
 ```env
 BOT_TOKEN=your-telegram-bot-token
-MONGODB_URI=mongodb://localhost:27017/geo_drop_bot
+MONGODB_URI=mongodb://localhost:27017/air_drop_bot
 
 RABBITMQ_PORT=5672
 RABBITMQ_USER=guest
