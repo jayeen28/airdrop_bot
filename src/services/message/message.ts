@@ -17,6 +17,7 @@ export default async function message(payload: MessagePayload) {
         message: payload.message,
         fileId: payload.fileId,
         caption: payload.caption,
+        radius: Number(process.env.DEFAULT_AIRDROP_RADIUS!)
     });
 
     await publish('message', JSON.stringify({ messageId: message._id }));

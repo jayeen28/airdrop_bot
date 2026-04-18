@@ -2,3 +2,4 @@ export const AIRDROP_COMMAND_REPLY = "📢 Send the content for your airdrop (te
 export const AIRDROP_WITHOUT_WAITING = "To send an airdrop, use /airdrop and follow the steps 👍";
 export const AIRDROP_CREATED = "🪂 Airdrop created";
 export const SUCCESSFUL_AIR_DROPS = (chunkSize: number) => `🪂 Your airdrop was delivered to ${chunkSize} ${chunkSize === 1 ? "user" : "users"}.`
+export const NO_USER_FOUND_TO_AIRDROP = "📭 No users found nearby to receive your airdrop.";

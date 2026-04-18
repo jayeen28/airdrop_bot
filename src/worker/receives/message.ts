@@ -1,9 +1,8 @@
 import { Types } from "mongoose";
-import { Telegraf } from "telegraf";
+import { getBot } from "../../lib/getBot";
 import { User, UserDocument } from "../../lib/models";
 import { Message } from "../../lib/models/message.model";
-import { getBot } from "../../lib/getBot";
-import { SUCCESSFUL_AIR_DROPS } from "../../lib/replies/airdrop.reply";
+import { NO_USER_FOUND_TO_AIRDROP, SUCCESSFUL_AIR_DROPS } from "../../lib/replies/airdrop.reply";
 
 const chunkSize = 25;
 
@@ -25,10 +24,12 @@ export default async function messageReceiver(msg: { messageId: string }) {
                         message.point.coordinates[1]  // lat
                     ]
                 },
-                $maxDistance: 500
+                $maxDistance: message.radius
             }
         }
     });
+
+    if (nearbyUsers.length === 0) await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, NO_USER_FOUND_TO_AIRDROP);
 
     for (let i = 0; i < nearbyUsers.length; i += chunkSize) {
         const chunk = nearbyUsers.slice(i, i + chunkSize);
