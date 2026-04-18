@@ -1,5 +1,5 @@
 export const START_REPLY =
-    '🎉 *Welcome to AirdropSpot📍*\n\n' +
+    '🎉 *Welcome to Airdrop Bot📍*\n\n' +
     'Discover and share location-based airdrops around you 🎁\n\n' +
     '📍 *Get started:*\n' +
     '• Tap *Share Location 📍* below to send your current location\n' +
