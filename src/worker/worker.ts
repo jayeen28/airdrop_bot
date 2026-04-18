@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
 import { Queues } from '../lib/types';
-import messageReceiver from './receives/message';
+import messageReceiver from './receivers/message';
 
 let conn: amqp.ChannelModel;
 let ch: amqp.Channel;
