@@ -29,7 +29,10 @@ export default async function messageReceiver(msg: { messageId: string }) {
         }
     });
 
-    if (nearbyUsers.length === 0) await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, NO_USER_FOUND_TO_AIRDROP);
+    if (nearbyUsers.length === 0) {
+        await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, NO_USER_FOUND_TO_AIRDROP);
+        return;
+    }
 
     for (let i = 0; i < nearbyUsers.length; i += chunkSize) {
         const chunk = nearbyUsers.slice(i, i + chunkSize);
@@ -69,8 +72,11 @@ export default async function messageReceiver(msg: { messageId: string }) {
             })
         );
 
-        await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, SUCCESSFUL_AIR_DROPS(chunk.length))
-
         await new Promise(res => setTimeout(res, 1000)); // 1 sec delay
+    }
+
+    if (nearbyUsers.length) {
+        await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, SUCCESSFUL_AIR_DROPS(nearbyUsers.length));
+        return;
     }
 }
