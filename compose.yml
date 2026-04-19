@@ -3,7 +3,7 @@ services:
     image: redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6390:6379"
     volumes:
       - ./redis-data:/data
 
@@ -11,11 +11,11 @@ services:
     image: rabbitmq:3-management
     restart: always
     ports:
-      - "5672:5672" # AMQP protocol port
-      - "15672:15672" # HTTP management UI port
+      - "5685:5672" # AMQP protocol port
+      - "15685:15672" # HTTP management UI port
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+      RABBITMQ_DEFAULT_USER: jayeen
+      RABBITMQ_DEFAULT_PASS: jayeen6783
     volumes:
       - ./rabbitmq_data:/var/lib/rabbitmq/
 
