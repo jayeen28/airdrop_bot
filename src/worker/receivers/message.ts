@@ -34,46 +34,42 @@ export default async function messageReceiver(msg: { messageId: string }) {
         return;
     }
 
+    const sentMessageKeys: string[] = [];
+
     for (let i = 0; i < nearbyUsers.length; i += chunkSize) {
         const chunk = nearbyUsers.slice(i, i + chunkSize);
 
-        await Promise.allSettled(
+        const results = await Promise.allSettled(
             chunk.map(async user => {
+                let sentMsg;
                 switch (message.type) {
                     case "text":
-                        await bot.telegram.sendMessage(user.tg_id, message.message);
+                        sentMsg = await bot.telegram.sendMessage(user.tg_id, message.message);
                         break;
-
                     case "photo":
-                        await bot.telegram.sendPhoto(user.tg_id, message.fileId!, {
-                            caption: message.caption || undefined
-                        });
+                        sentMsg = await bot.telegram.sendPhoto(user.tg_id, message.fileId!, { caption: message.caption || undefined });
                         break;
-
                     case "video":
-                        await bot.telegram.sendVideo(user.tg_id, message.fileId!, {
-                            caption: message.caption || undefined
-                        });
+                        sentMsg = await bot.telegram.sendVideo(user.tg_id, message.fileId!, { caption: message.caption || undefined });
                         break;
-
                     case "voice":
-                        await bot.telegram.sendVoice(user.tg_id, message.fileId!);
+                        sentMsg = await bot.telegram.sendVoice(user.tg_id, message.fileId!);
                         break;
-
-                    case "voice":
-                        await bot.telegram.sendAudio(user.tg_id, message.fileId!, {
-                            caption: message.caption || undefined
-                        });
-                        break;
-
-                    default:
-                        console.warn(`Unsupported message type: ${message.type}`);
                 }
+                return sentMsg ? `${sentMsg.chat.id}_${sentMsg.message_id}` : undefined;
             })
         );
 
+        for (const result of results) {
+            if (result.status === 'fulfilled' && result.value) {
+                sentMessageKeys.push(result.value);
+            }
+        }
+
         await new Promise(res => setTimeout(res, 1000)); // 1 sec delay
     }
+
+    await Message.findByIdAndUpdate(message._id, { $set: { sentMessageKeys } });
 
     if (nearbyUsers.length) {
         await bot.telegram.sendMessage((message.sender as unknown as UserDocument).tg_id, SUCCESSFUL_AIR_DROPS(nearbyUsers.length));

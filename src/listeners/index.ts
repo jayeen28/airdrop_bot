@@ -1,8 +1,10 @@
 import { Telegraf } from "telegraf";
-import location from "./location";
+import locationListener from "./location";
 import messageListener from "./message";
+import messageReaction from "./message-reaction";
 
 export default function registerListeners(bot: Telegraf) {
-    location(bot);
+    locationListener(bot);
     messageListener(bot);
+    messageReaction(bot);
 }

@@ -17,11 +17,14 @@ export const messageSchema = new Schema({
     },
     message: { type: String, default: 'New message' },
     caption: { type: String },
-    radius: { type: Number, default: 500 }
+    radius: { type: Number, default: 500 },
+    sentMessageKeys: [{ type: String }],
+    reactionCount: { type: Number, default: 0 }
 }, { timestamps: true, versionKey: false });
 
 
 messageSchema.plugin(paginate);
+messageSchema.index({ sentMessageKeys: 1 });
 
 export type MessageDocument = InferSchemaType<typeof messageSchema>;
 export const Message = (models.Message as PaginateModel<MessageDocument>) || model<MessageDocument, PaginateModel<MessageDocument>>('Message', messageSchema)

@@ -1,7 +1,7 @@
 import { Markup, Telegraf } from "telegraf";
 import addLocation from "../services/location/location";
 
-export default function location(bot: Telegraf) {
+export default function locationListener(bot: Telegraf) {
 
     // Handle one-time location (GPS or manual selection)
     bot.on('location', async (ctx) => {

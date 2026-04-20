@@ -51,7 +51,12 @@ async function startBot() {
     registerCommands(bot);
 
     // Launch without awaiting (blocks in polling mode)
-    bot.launch().catch(console.error);
+    bot.launch({
+        allowedUpdates: [
+            'message',
+            'message_reaction'
+        ]
+    }).catch(console.error);
 
     // Verify bot connection
     setTimeout(async () => {
