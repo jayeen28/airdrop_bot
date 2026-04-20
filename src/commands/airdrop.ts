@@ -2,7 +2,7 @@ import { Telegraf } from "telegraf";
 import { redis } from "../lib/redis";
 import { AIRDROP_COMMAND_REPLY } from "../lib/replies/airdrop.reply";
 import { hasLocation } from "../services/user/user";
-import { NO_LOCATION } from "../lib/replies/no_location.reply";
+import { NO_LOCATION } from "../lib/replies/location.reply";
 
 export default function airdropCommand(bot: Telegraf) {
     bot.command('airdrop', async (ctx) => {

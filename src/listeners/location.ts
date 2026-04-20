@@ -1,5 +1,6 @@
 import { Markup, Telegraf } from "telegraf";
 import addLocation from "../services/location/location";
+import { LOCATION_ADDED } from "../lib/replies/location.reply";
 
 export default function locationListener(bot: Telegraf) {
 
@@ -25,9 +26,7 @@ export default function locationListener(bot: Telegraf) {
                 await addLocation(tg_id, latitude, longitude);
 
                 await ctx.reply(
-                    `✅ *Location received!*\n` +
-                    `📍 ${latitude.toFixed(4)}, ${longitude.toFixed(4)}\n\n` +
-                    'Any nearby airdrops will be notified... 🎯',
+                    LOCATION_ADDED({ latitude, longitude }),
                     { parse_mode: 'Markdown' }
                 );
             }

@@ -1,3 +1,12 @@
+import { AIRDROP_WITHOUT_WAITING } from "./airdrop.reply";
+
+export const LOCATION_ADDED = ({ latitude, longitude }: { latitude: number, longitude: number }) => (
+    `✅ *Location received!*\n` +
+    `📍 ${latitude.toFixed(4)}, ${longitude.toFixed(4)}\n\n` +
+    'Any nearby airdrops will be notified... 🎯\n\n' +
+    AIRDROP_WITHOUT_WAITING
+);
+
 export const NO_LOCATION = '❗❗ You have not shared your location yet❗❗\n\n' +
     'To find airdrops near you, share your location using any of these methods:\n\n' +
     '*One-time options (recommended):*\n' +
