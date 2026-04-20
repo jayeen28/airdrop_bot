@@ -1,6 +1,6 @@
 import { Markup, Telegraf } from "telegraf";
 import addLocation from "../services/location/location";
-import { LOCATION_ADDED } from "../lib/replies/location.reply";
+import { LIVE_LOCATION_ADD, LOCATION_ADDED, LOCATION_PROCESSING_ERROR, ONE_TIME_LOCATION_ADD } from "../lib/replies/location.reply";
 
 export default function locationListener(bot: Telegraf) {
 
@@ -13,15 +13,12 @@ export default function locationListener(bot: Telegraf) {
             // Check if it's a live location update
             if ('live_period' in ctx.message.location) {
                 await ctx.reply(
-                    '✅ *Live location active!*\n\n' +
-                    `📍 Starting position: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}\n` +
-                    `⏱ Updates every few seconds for ${ctx.message.location.live_period} seconds\n\n` +
-                    "I'll track your movement and notify nearby airdrops 🚀",
+                    LIVE_LOCATION_ADD({ latitude, longitude, live_period: ctx.message.location.live_period }),
                     { parse_mode: 'Markdown' }
                 );
             } else {
                 // One-time location
-                await ctx.reply('⏳ Finding airdrops near you...', Markup.removeKeyboard());
+                await ctx.reply(ONE_TIME_LOCATION_ADD, Markup.removeKeyboard());
 
                 await addLocation(tg_id, latitude, longitude);
 
@@ -33,7 +30,7 @@ export default function locationListener(bot: Telegraf) {
 
         } catch (e) {
             console.error(e);
-            await ctx.reply('❌ Error processing location. Try again?', Markup.removeKeyboard());
+            await ctx.reply(LOCATION_PROCESSING_ERROR, Markup.removeKeyboard());
         }
     });
 
@@ -46,9 +43,6 @@ export default function locationListener(bot: Telegraf) {
 
             // Update location in your service
             await addLocation(tg_id, latitude, longitude);
-
-            // Optionally notify user of update (or keep silent)
-            // await ctx.reply('📍 Location updated!', { parse_mode: 'Markdown' });
         }
     });
 }

@@ -15,3 +15,15 @@ export const NO_LOCATION = '❗❗ You have not shared your location yet❗❗\n
     '*Live location (optional):*\n' +
     '• Tap 📎 attachment → *Location* → *Share My Live Location* — updates automatically for 15 min to 8 hours\n\n' +
     '_Your location stays private and is only used to find nearby drops._\n\n' + 'Use /help to see all commands and features.'
+
+
+export const LIVE_LOCATION_ADD = ({ latitude, longitude, live_period }: { latitude: number, longitude: number, live_period: number }) => (
+    '✅ *Live location active!*\n\n' +
+    `📍 Starting position: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}\n` +
+    `⏱ Updates every few seconds for ${live_period} seconds\n\n` +
+    "I'll track your movement and notify nearby airdrops 🚀"
+);
+
+export const ONE_TIME_LOCATION_ADD = '⏳ Finding airdrops near you...';
+
+export const LOCATION_PROCESSING_ERROR = '❌ Error processing location. Try again?';
