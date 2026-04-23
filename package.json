@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"start": "nodemon --exec ts-node src/bot.ts --watc src"
+		"start": "nodemon --exec ts-node src/bot.ts --watch src"
 	},
 	"devDependencies": {
 		"@types/amqplib": "^0.10.8",
