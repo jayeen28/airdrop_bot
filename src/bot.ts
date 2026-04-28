@@ -94,6 +94,6 @@ async function startBot() {
 }
 
 startBot().catch((err) => {
-    console.error('💥 Fatal error during startup:', err.message);
+    console.error('💥 Fatal error during startup:', err);
     process.exit(1);
 });
